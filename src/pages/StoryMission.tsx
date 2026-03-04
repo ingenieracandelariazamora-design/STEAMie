@@ -18,30 +18,30 @@ interface StoryStep {
 
 const storySteps: StoryStep[] = [
   {
-    scenario: "You receive a message from someone you don't know: 'Hey! You won a free iPhone! Click this link to claim it now! 🎉'",
+    scenario: "Recibes un mensaje de alguien que no conoces: '¡Hola! ¡Ganaste un celular gratis! Haz clic en este enlace para reclamarlo! 🎉'",
     emoji: '📩',
     choices: [
-      { text: "Click the link right away — free iPhone!", correct: false, feedback: "Never click links from strangers! This is a common phishing scam designed to steal your information." },
-      { text: "Ignore the message and tell a trusted adult", correct: true, feedback: "Great choice! Ignoring suspicious messages and telling an adult is always the safest option." },
-      { text: "Reply asking for more details", correct: false, feedback: "Replying to scammers lets them know your account is active. It's better to ignore and report." },
+      { text: "Hago clic en el enlace — ¡un celular gratis!", correct: false, feedback: "¡Nunca hagas clic en enlaces de desconocidos! Esta es una estafa muy común para robar tu información." },
+      { text: "Ignoro el mensaje y le cuento a un adulto de confianza", correct: true, feedback: "¡Excelente decisión! Ignorar mensajes sospechosos y contarle a un adulto es siempre lo más seguro." },
+      { text: "Respondo pidiendo más detalles", correct: false, feedback: "Responderle a los estafadores les dice que tu cuenta está activa. Es mejor ignorar y reportar." },
     ],
   },
   {
-    scenario: "A friend on a game asks you to share your home address so they can 'send you a gift'. What do you do?",
+    scenario: "Un amigo en un juego te pide que le compartas tu dirección de casa para 'enviarte un regalo'. ¿Qué haces?",
     emoji: '🎮',
     choices: [
-      { text: "Share your address — they seem nice!", correct: false, feedback: "Never share personal information like your address online, even with people who seem friendly. You can't verify who they really are." },
-      { text: "Share a fake address instead", correct: false, feedback: "While creative, it's better to simply refuse. Sharing any address could encourage them to keep asking for information." },
-      { text: "Politely decline and never share personal info", correct: true, feedback: "Perfect! Your personal information should stay private. A real friend would understand!" },
+      { text: "Le doy mi dirección — ¡parece buena persona!", correct: false, feedback: "Nunca compartas información personal como tu dirección en internet, ni siquiera con personas que parecen amigables. No puedes saber quiénes son realmente." },
+      { text: "Le doy una dirección falsa", correct: false, feedback: "Aunque es creativo, es mejor simplemente decir que no. Dar cualquier dirección podría hacer que sigan pidiéndote información." },
+      { text: "Le digo amablemente que no y nunca comparto información personal", correct: true, feedback: "¡Perfecto! Tu información personal debe quedarse privada. ¡Un verdadero amigo lo entendería!" },
     ],
   },
   {
-    scenario: "You see a pop-up saying: 'WARNING! Your device has a virus! Download this app to fix it NOW!'",
+    scenario: "Ves una ventana emergente que dice: '¡ALERTA! ¡Tu dispositivo tiene un virus! ¡Descarga esta app para arreglarlo YA!'",
     emoji: '⚠️',
     choices: [
-      { text: "Download the app to fix the virus", correct: false, feedback: "These scary pop-ups are fake! Downloading unknown apps can actually install real viruses on your device." },
-      { text: "Close the pop-up and tell a trusted adult", correct: true, feedback: "Excellent! Fake virus warnings are a common trick. Always close them and let an adult know." },
-      { text: "Click 'X' but also share it with friends", correct: false, feedback: "Closing is right, but sharing it could cause your friends to fall for the scam. Tell an adult instead." },
+      { text: "Descargo la app para arreglar el virus", correct: false, feedback: "¡Esas alertas de virus son falsas! Descargar apps desconocidas puede instalar virus reales en tu dispositivo." },
+      { text: "Cierro la ventana y le cuento a un adulto de confianza", correct: true, feedback: "¡Excelente! Las alertas falsas de virus son un truco muy común. Siempre ciérralas y avisa a un adulto." },
+      { text: "Cierro la ventana pero se la envío a mis amigos", correct: false, feedback: "Cerrarla está bien, pero compartirla podría hacer que tus amigos caigan en la trampa. Mejor avisa a un adulto." },
     ],
   },
 ];
@@ -83,21 +83,21 @@ const StoryMission = () => {
   if (finished) {
     const totalCorrect = score;
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 pb-24">
         <div className="card-playful w-full max-w-md text-center animate-slide-up">
           <div className="mb-4 text-6xl">🎉</div>
-          <h1 className="font-display text-3xl font-bold text-foreground">Mission Complete!</h1>
+          <h1 className="font-display text-3xl font-bold text-foreground">¡Misión completada!</h1>
           <p className="mt-3 text-lg text-muted-foreground">
-            You got <span className="font-bold text-primary">{totalCorrect}/{storySteps.length}</span> correct!
+            ¡Acertaste <span className="font-bold text-primary">{totalCorrect}/{storySteps.length}</span>!
           </p>
           <div className="mt-4 rounded-2xl bg-success/10 p-4">
-            <p className="font-display font-semibold text-success">+{totalCorrect * 15} points earned!</p>
+            <p className="font-display font-semibold text-success">+{totalCorrect * 15} puntos ganados</p>
           </div>
           <Button
             onClick={() => navigate('/dashboard')}
             className="btn-bounce mt-6 w-full rounded-full bg-primary py-6 font-display text-lg text-primary-foreground hover:bg-primary/90"
           >
-            Back to Dashboard
+            Volver al inicio
           </Button>
         </div>
       </div>
@@ -105,14 +105,14 @@ const StoryMission = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-background pb-24">
       <header className="border-b border-border bg-card">
         <div className="container flex items-center gap-3 py-4">
           <button onClick={() => navigate('/dashboard')} className="text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-5 w-5" />
           </button>
           <Shield className="h-6 w-6 text-primary" />
-          <span className="font-display font-bold text-foreground">The Suspicious Message</span>
+          <span className="font-display font-bold text-foreground">El mensaje sospechoso</span>
           <span className="ml-auto text-sm text-muted-foreground">{step + 1}/{storySteps.length}</span>
         </div>
         <div className="h-1 bg-muted">
@@ -122,13 +122,11 @@ const StoryMission = () => {
 
       <div className="container flex flex-1 flex-col items-center justify-center py-8">
         <div className="w-full max-w-lg animate-slide-up">
-          {/* Scenario */}
           <div className="card-playful mb-6 text-center">
             <div className="mb-3 text-5xl">{currentStep.emoji}</div>
             <p className="font-body text-lg leading-relaxed text-foreground">{currentStep.scenario}</p>
           </div>
 
-          {/* Choices */}
           <div className="space-y-3">
             {currentStep.choices.map((choice, i) => {
               let style = 'border-border bg-card hover:border-primary/50 cursor-pointer';
@@ -160,7 +158,6 @@ const StoryMission = () => {
             })}
           </div>
 
-          {/* Feedback */}
           {selected !== null && (
             <div className="mt-4 animate-slide-up">
               <div className={`rounded-2xl p-4 ${currentStep.choices[selected].correct ? 'bg-success/10 border border-success/30' : 'bg-destructive/10 border border-destructive/30'}`}>
@@ -170,7 +167,7 @@ const StoryMission = () => {
                 onClick={handleNext}
                 className="btn-bounce mt-4 w-full rounded-full bg-primary py-5 font-display text-primary-foreground hover:bg-primary/90"
               >
-                {step < storySteps.length - 1 ? 'Next Scenario →' : 'Finish Mission 🎉'}
+                {step < storySteps.length - 1 ? 'Siguiente escenario →' : '¡Terminar misión! 🎉'}
               </Button>
             </div>
           )}

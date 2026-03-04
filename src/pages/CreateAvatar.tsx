@@ -32,8 +32,8 @@ const CreateAvatar = () => {
       </div>
 
       <div className="card-playful w-full max-w-md">
-        <h1 className="text-center font-display text-3xl font-bold text-foreground">Create Your Hero</h1>
-        <p className="mt-2 text-center text-muted-foreground">Customize your digital defender!</p>
+        <h1 className="text-center font-display text-3xl font-bold text-foreground">Crea tu héroe</h1>
+        <p className="mt-2 text-center text-muted-foreground">¡Personaliza a tu defensor digital!</p>
 
         {/* Preview */}
         <div className="my-6 flex justify-center">
@@ -47,11 +47,11 @@ const CreateAvatar = () => {
 
         {/* Name */}
         <div className="mb-4">
-          <label className="mb-1 block font-display text-sm font-semibold text-foreground">Hero Name</label>
+          <label className="mb-1 block font-display text-sm font-semibold text-foreground">Nombre del héroe</label>
           <Input
             value={name}
             onChange={e => setName(e.target.value)}
-            placeholder="Enter your hero name..."
+            placeholder="Escribe el nombre de tu héroe..."
             className="rounded-xl text-center font-body text-lg"
             maxLength={20}
           />
@@ -59,7 +59,7 @@ const CreateAvatar = () => {
 
         {/* Hair Style */}
         <div className="mb-4">
-          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Choose Your Look</label>
+          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Elige tu aspecto</label>
           <div className="flex justify-center gap-3">
             {HAIR_STYLES.map((style, i) => (
               <button
@@ -77,7 +77,7 @@ const CreateAvatar = () => {
 
         {/* Hair Color */}
         <div className="mb-4">
-          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Hair Color</label>
+          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Color de cabello</label>
           <div className="flex justify-center gap-2">
             {HAIR_COLORS.map(color => (
               <button
@@ -94,7 +94,7 @@ const CreateAvatar = () => {
 
         {/* Skin Color */}
         <div className="mb-6">
-          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Skin Tone</label>
+          <label className="mb-2 block font-display text-sm font-semibold text-foreground">Tono de piel</label>
           <div className="flex justify-center gap-2">
             {SKIN_COLORS.map(color => (
               <button
@@ -114,7 +114,7 @@ const CreateAvatar = () => {
           disabled={!name.trim()}
           className="btn-bounce w-full rounded-full bg-primary py-6 font-display text-lg text-primary-foreground shadow-lg hover:bg-primary/90 disabled:opacity-50"
         >
-          🛡️ Begin Your Mission!
+          🛡️ ¡Comienza tu misión!
         </Button>
       </div>
     </div>

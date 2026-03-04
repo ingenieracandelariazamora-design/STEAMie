@@ -16,7 +16,7 @@ const Landing = () => {
           <span className="font-display text-2xl font-bold text-foreground">CyberGuardians</span>
         </div>
         <Button onClick={() => navigate('/create-avatar')} className="btn-bounce rounded-full bg-secondary font-display text-secondary-foreground hover:bg-secondary/90">
-          Start Playing
+          ¡A jugar!
         </Button>
       </nav>
 
@@ -28,23 +28,23 @@ const Landing = () => {
         <div className="container flex flex-col items-center gap-8 py-16 md:flex-row md:py-24">
           <div className="flex-1 text-center md:text-left">
             <h1 className="font-display text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
-              Learn to Stay <span className="text-gradient">Safe Online</span> Through Games!
+              ¡Aprende a estar <span className="text-gradient">seguro en internet</span> jugando!
             </h1>
             <p className="mt-4 text-lg text-muted-foreground md:text-xl">
-              Interactive stories, mini games, and fun challenges that teach children how to protect themselves in the digital world.
+              Historias interactivas, minijuegos y desafíos divertidos que te enseñan a protegerte en el mundo digital.
             </p>
             <Button
               onClick={() => navigate('/create-avatar')}
               size="lg"
               className="btn-bounce mt-8 rounded-full bg-primary px-8 py-6 font-display text-lg text-primary-foreground shadow-lg hover:bg-primary/90"
             >
-              🚀 Start Your Mission
+              🚀 ¡Comienza tu misión!
             </Button>
           </div>
           <div className="flex-1 flex justify-center">
             <img
               src={mascot}
-              alt="CyberGuardian mascot robot"
+              alt="Mascota robot de CyberGuardians"
               className="w-64 md:w-80 animate-float drop-shadow-2xl"
             />
           </div>
@@ -55,16 +55,16 @@ const Landing = () => {
       <section className="bg-muted/50 py-16">
         <div className="container">
           <h2 className="text-center font-display text-3xl font-bold text-foreground md:text-4xl">
-            Why Digital Safety Matters
+            ¿Por qué importa la seguridad digital?
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-            Children face real risks online every day. CyberGuardians helps them recognize and avoid these dangers.
+            Los niños enfrentan riesgos reales en internet todos los días. CyberGuardians te ayuda a reconocerlos y evitarlos.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {[
-              { icon: MessageCircleWarning, title: 'Online Scams', desc: 'Fake messages and links designed to trick kids into sharing personal info.' },
-              { icon: Eye, title: 'Privacy Risks', desc: 'Sharing too much online can put children and families at risk.' },
-              { icon: Shield, title: 'Cyberbullying', desc: 'Hurtful messages and behavior that can affect kids emotionally.' },
+              { icon: MessageCircleWarning, title: 'Estafas en línea', desc: 'Mensajes falsos y enlaces diseñados para engañarte y robar tu información.' },
+              { icon: Eye, title: 'Riesgos de privacidad', desc: 'Compartir demasiada información puede ponerte en peligro a ti y a tu familia.' },
+              { icon: Shield, title: 'Ciberacoso', desc: 'Mensajes hirientes que pueden afectar cómo te sientes.' },
             ].map((item) => (
               <div key={item.title} className="card-playful text-center">
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10">
@@ -82,14 +82,14 @@ const Landing = () => {
       <section className="py-16">
         <div className="container">
           <h2 className="text-center font-display text-3xl font-bold text-foreground md:text-4xl">
-            How CyberGuardians Works
+            ¿Cómo funciona CyberGuardians?
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: '🤖', title: 'Create Your Avatar', desc: 'Customize your digital hero.' },
-              { icon: '📖', title: 'Play Stories', desc: 'Make choices in interactive scenarios.' },
-              { icon: '🎮', title: 'Mini Games', desc: 'Test your skills spotting dangers.' },
-              { icon: '🏆', title: 'Earn Rewards', desc: 'Collect points, badges and level up!' },
+              { icon: '🤖', title: 'Crea tu avatar', desc: 'Personaliza tu héroe digital.' },
+              { icon: '📖', title: 'Juega historias', desc: 'Toma decisiones en situaciones interactivas.' },
+              { icon: '🎮', title: 'Minijuegos', desc: 'Pon a prueba tus habilidades detectando peligros.' },
+              { icon: '🏆', title: 'Gana premios', desc: '¡Colecciona puntos, insignias y sube de nivel!' },
             ].map((item, i) => (
               <div key={item.title} className="card-playful text-center" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="mb-3 text-4xl">{item.icon}</div>
@@ -109,11 +109,11 @@ const Landing = () => {
             <span className="font-display font-semibold text-foreground">CyberGuardians</span>
           </div>
           <div className="flex gap-6">
-            <span className="cursor-pointer hover:text-foreground">About</span>
-            <span className="cursor-pointer hover:text-foreground">Contact</span>
-            <span className="cursor-pointer hover:text-foreground">Privacy Policy</span>
+            <span className="cursor-pointer hover:text-foreground">Acerca de</span>
+            <span className="cursor-pointer hover:text-foreground">Contacto</span>
+            <span className="cursor-pointer hover:text-foreground">Política de privacidad</span>
           </div>
-          <p>© 2026 CyberGuardians. Made for kids, by safety experts.</p>
+          <p>© 2026 CyberGuardians. Hecho para niños, por expertos en seguridad.</p>
         </div>
       </footer>
     </div>
