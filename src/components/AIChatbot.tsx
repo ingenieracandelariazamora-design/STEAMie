@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -8,13 +8,26 @@ interface Message {
   content: string;
 }
 
+const speak = (text: string) => {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'es-ES';
+  utterance.rate = 0.9;
+  utterance.pitch = 1.2;
+  speechSynthesis.speak(utterance);
+};
+
+const GREETING = '¡Hola! 🤖💖 Soy Emabot, tu amiga robot. Te voy a enseñar cómo estar seguro en internet. ¿Estás listo para aprender conmigo?';
+
 const AIChatbot = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! 👋 Soy tu asistente de seguridad digital. Puedes preguntarme lo que quieras sobre cómo estar seguro en internet. ¿En qué te puedo ayudar?' },
+    { role: 'assistant', content: GREETING },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [ttsEnabled, setTtsEnabled] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,6 +35,10 @@ const AIChatbot = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  const handleNewAssistantMessage = useCallback((text: string) => {
+    if (ttsEnabled) speak(text);
+  }, [ttsEnabled]);
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -40,11 +57,13 @@ const AIChatbot = () => {
 
       if (error) throw error;
 
-      const reply = data?.reply || 'Lo siento, no pude responder. Intenta de nuevo.';
+      const reply = data?.reply || 'No pude responder. Intenta de nuevo. 😊';
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      handleNewAssistantMessage(reply);
     } catch (e) {
       console.error('Chat error:', e);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Ups, hubo un error. Intenta de nuevo en un momento. 😅' }]);
+      const errMsg = 'Ups, algo salió mal. Intenta de nuevo. 😅';
+      setMessages(prev => [...prev, { role: 'assistant', content: errMsg }]);
     } finally {
       setLoading(false);
     }
@@ -52,7 +71,6 @@ const AIChatbot = () => {
 
   return (
     <>
-      {/* FAB */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
@@ -62,28 +80,33 @@ const AIChatbot = () => {
         </button>
       )}
 
-      {/* Chat Panel */}
       {open && (
         <div className="fixed bottom-20 right-2 left-2 z-50 mx-auto max-w-sm animate-slide-up">
           <div className="flex flex-col rounded-2xl border-2 border-border bg-card shadow-2xl overflow-hidden" style={{ height: '420px' }}>
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border bg-primary/10 px-4 py-3">
               <div className="flex items-center gap-2">
-                <span className="text-xl">🤖</span>
-                <span className="font-display font-bold text-foreground text-sm">Asistente de seguridad</span>
+                <span className="text-xl">🤖💖</span>
+                <span className="font-display font-bold text-foreground text-sm">Emabot</span>
               </div>
-              <button onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground">
-                <X className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => { setTtsEnabled(!ttsEnabled); if (ttsEnabled) speechSynthesis.cancel(); }}
+                  className="text-muted-foreground hover:text-foreground p-1"
+                  title={ttsEnabled ? 'Silenciar voz' : 'Activar voz'}
+                >
+                  {ttsEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                </button>
+                <button onClick={() => { setOpen(false); speechSynthesis.cancel(); }} className="text-muted-foreground hover:text-foreground p-1">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-3">
               {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
+                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div
                     className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
                       msg.role === 'user'
@@ -93,6 +116,15 @@ const AIChatbot = () => {
                   >
                     {msg.content}
                   </div>
+                  {msg.role === 'assistant' && (
+                    <button
+                      onClick={() => speak(msg.content)}
+                      className="ml-1 self-end text-muted-foreground hover:text-foreground p-1"
+                      title="Escuchar"
+                    >
+                      <Volume2 className="h-3 w-3" />
+                    </button>
+                  )}
                 </div>
               ))}
               {loading && (
@@ -106,10 +138,7 @@ const AIChatbot = () => {
 
             {/* Input */}
             <div className="border-t border-border p-2">
-              <form
-                onSubmit={e => { e.preventDefault(); sendMessage(); }}
-                className="flex gap-2"
-              >
+              <form onSubmit={e => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
                 <input
                   value={input}
                   onChange={e => setInput(e.target.value)}
@@ -117,12 +146,7 @@ const AIChatbot = () => {
                   className="flex-1 rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={loading}
                 />
-                <Button
-                  type="submit"
-                  size="sm"
-                  disabled={!input.trim() || loading}
-                  className="rounded-xl bg-primary text-primary-foreground"
-                >
+                <Button type="submit" size="sm" disabled={!input.trim() || loading} className="rounded-xl bg-primary text-primary-foreground">
                   <Send className="h-4 w-4" />
                 </Button>
               </form>
