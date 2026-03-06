@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { MessageCircle, X, Send, Volume2, VolumeX } from 'lucide-react';
+import { MessageCircle, X, Send, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -7,6 +7,8 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
+
+const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 const speak = (text: string) => {
   if (!('speechSynthesis' in window)) return;
@@ -28,7 +30,31 @@ const AIChatbot = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [ttsEnabled, setTtsEnabled] = useState(true);
+  const [listening, setListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const startListening = useCallback(() => {
+    if (!SpeechRecognition) return;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'es-ES';
+    recognition.interimResults = false;
+    recognition.onresult = (event: any) => {
+      const texto = event.results[0][0].transcript;
+      setInput(texto);
+      setListening(false);
+    };
+    recognition.onerror = () => setListening(false);
+    recognition.onend = () => setListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setListening(true);
+  }, []);
+
+  const stopListening = useCallback(() => {
+    recognitionRef.current?.stop();
+    setListening(false);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -142,10 +168,22 @@ const AIChatbot = () => {
                 <input
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  placeholder="Escribe tu pregunta..."
+                  placeholder="Escribe o habla..."
                   className="flex-1 rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={loading}
                 />
+                {SpeechRecognition && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={listening ? 'destructive' : 'outline'}
+                    onClick={listening ? stopListening : startListening}
+                    className="rounded-xl"
+                    disabled={loading}
+                  >
+                    {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                  </Button>
+                )}
                 <Button type="submit" size="sm" disabled={!input.trim() || loading} className="rounded-xl bg-primary text-primary-foreground">
                   <Send className="h-4 w-4" />
                 </Button>
