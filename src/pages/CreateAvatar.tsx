@@ -4,14 +4,15 @@ import { useGame } from '@/contexts/GameContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Shield } from 'lucide-react';
+import emabotMascot from '@/assets/emabot-mascot.png';
 
-const HAIR_STYLES = ['🧑', '👦', '👧', '🧒'];
+const HAIR_STYLES = ['👧', '👩', '🧒', '👱‍♀️'];
 const HAIR_COLORS = ['#3B2F2F', '#F5D76E', '#D35400', '#E74C3C', '#8E44AD', '#2ECC71'];
 const SKIN_COLORS = ['#FDEBD0', '#F5CBA7', '#DC7633', '#A0522D', '#6B3FA0', '#3498DB'];
 
 const CreateAvatar = () => {
   const navigate = useNavigate();
-  const { setAvatar, startGame } = useGame();
+  const { setAvatar, startGame, ageGroup } = useGame();
   const [name, setName] = useState('');
   const [hairStyle, setHairStyle] = useState(0);
   const [hairColor, setHairColor] = useState(HAIR_COLORS[0]);
@@ -24,16 +25,22 @@ const CreateAvatar = () => {
     navigate('/dashboard');
   };
 
+  const isYoung = ageGroup === '5-7';
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
-      <div className="flex items-center gap-2 mb-8">
-        <Shield className="h-8 w-8 text-primary" />
-        <span className="font-display text-2xl font-bold text-foreground">CyberGuardians</span>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-hero p-4">
+      <div className="flex items-center gap-3 mb-6">
+        <img src={emabotMascot} alt="Emabot" className="w-12 h-12" />
+        <span className="font-display text-2xl font-bold text-foreground">EmaBot</span>
       </div>
 
       <div className="card-playful w-full max-w-md">
-        <h1 className="text-center font-display text-3xl font-bold text-foreground">Crea tu héroe</h1>
-        <p className="mt-2 text-center text-muted-foreground">¡Personaliza a tu defensor digital!</p>
+        <h1 className="text-center font-display text-3xl font-bold text-foreground">
+          {isYoung ? '¡Crea tu personaje! 🌈' : 'Crea tu heroína digital 💪'}
+        </h1>
+        <p className="mt-2 text-center text-muted-foreground">
+          {isYoung ? '¡Elige cómo te ves!' : '¡Personaliza a tu defensora digital!'}
+        </p>
 
         {/* Preview */}
         <div className="my-6 flex justify-center">
@@ -47,11 +54,13 @@ const CreateAvatar = () => {
 
         {/* Name */}
         <div className="mb-4">
-          <label className="mb-1 block font-display text-sm font-semibold text-foreground">Nombre del héroe</label>
+          <label className="mb-1 block font-display text-sm font-semibold text-foreground">
+            {isYoung ? '¿Cómo te llamas?' : 'Nombre de tu heroína'}
+          </label>
           <Input
             value={name}
             onChange={e => setName(e.target.value)}
-            placeholder="Escribe el nombre de tu héroe..."
+            placeholder={isYoung ? 'Tu nombre...' : 'Escribe un nombre genial...'}
             className="rounded-xl text-center font-body text-lg"
             maxLength={20}
           />
@@ -65,7 +74,7 @@ const CreateAvatar = () => {
               <button
                 key={i}
                 onClick={() => setHairStyle(i)}
-                className={`btn-bounce flex h-14 w-14 items-center justify-center rounded-2xl text-2xl transition-all ${
+                className={`btn-bounce flex h-16 w-16 items-center justify-center rounded-2xl text-3xl transition-all ${
                   hairStyle === i ? 'bg-primary/20 ring-2 ring-primary scale-110' : 'bg-muted hover:bg-muted/80'
                 }`}
               >
@@ -112,9 +121,9 @@ const CreateAvatar = () => {
         <Button
           onClick={handleStart}
           disabled={!name.trim()}
-          className="btn-bounce w-full rounded-full bg-primary py-6 font-display text-lg text-primary-foreground shadow-lg hover:bg-primary/90 disabled:opacity-50"
+          className="btn-kid w-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 disabled:opacity-50"
         >
-          🛡️ ¡Comienza tu misión!
+          {isYoung ? '🌟 ¡A jugar!' : '🛡️ ¡Comienza tu misión!'}
         </Button>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
+export type AgeGroup = '5-7' | '8-12' | 'teens' | 'adults' | null;
+
 export interface Avatar {
   name: string;
   hairStyle: number;
@@ -18,6 +20,7 @@ export interface Badge {
 export type Level = 'Beginner' | 'Digital Defender' | 'Cyber Hero';
 
 interface GameState {
+  ageGroup: AgeGroup;
   avatar: Avatar | null;
   points: number;
   level: Level;
@@ -27,6 +30,7 @@ interface GameState {
 }
 
 interface GameContextType extends GameState {
+  setAgeGroup: (age: AgeGroup) => void;
   setAvatar: (avatar: Avatar) => void;
   addPoints: (amount: number) => void;
   completeMission: (missionId: string) => void;
@@ -53,6 +57,7 @@ function getLevel(points: number): Level {
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GameState>({
+    ageGroup: null,
     avatar: null,
     points: 0,
     level: 'Beginner',
@@ -61,6 +66,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
     hasStarted: false,
   });
   const [pointsAnimation, setPointsAnimation] = useState(false);
+
+  const setAgeGroup = useCallback((ageGroup: AgeGroup) => {
+    setState(prev => ({ ...prev, ageGroup }));
+  }, []);
 
   const setAvatar = useCallback((avatar: Avatar) => {
     setState(prev => ({ ...prev, avatar }));
@@ -104,7 +113,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <GameContext.Provider value={{ ...state, setAvatar, addPoints, completeMission, earnBadge, startGame, pointsAnimation }}>
+    <GameContext.Provider value={{ ...state, setAgeGroup, setAvatar, addPoints, completeMission, earnBadge, startGame, pointsAnimation }}>
       {children}
     </GameContext.Provider>
   );

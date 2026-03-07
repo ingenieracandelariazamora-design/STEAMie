@@ -60,6 +60,12 @@ export default {
           foreground: "hsl(var(--warning-foreground))",
         },
         gold: "hsl(var(--gold))",
+        teal: {
+          DEFAULT: "hsl(var(--teal))",
+          foreground: "hsl(var(--teal-foreground))",
+        },
+        "pink-light": "hsl(var(--pink-light))",
+        "purple-light": "hsl(var(--purple-light))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -115,6 +121,11 @@ export default {
           "75%": { transform: "scale(1.2) rotate(-3deg)" },
           "100%": { transform: "scale(1)" },
         },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(-3deg)" },
+          "75%": { transform: "rotate(3deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -125,6 +136,7 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "scale-in": "scale-in 0.3s ease-out",
         "level-up": "level-up 0.8s ease-in-out",
+        "wiggle": "wiggle 0.5s ease-in-out infinite",
       },
     },
   },
