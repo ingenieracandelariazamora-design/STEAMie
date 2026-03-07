@@ -14,8 +14,8 @@ const Profile = () => {
 
   const levelLabels: Record<string, string> = {
     'Beginner': 'Principiante',
-    'Digital Defender': 'Defensor Digital',
-    'Cyber Hero': 'Ciber Héroe',
+    'Digital Defender': 'Defensora Digital',
+    'Cyber Hero': 'Ciber Heroína',
   };
 
   const nextLevel = level === 'Beginner' ? 100 : level === 'Digital Defender' ? 200 : 300;
@@ -25,12 +25,11 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background pb-24 font-body">
       <div className="container pt-8 flex flex-col items-center">
-        {/* Avatar */}
         <div
           className="flex h-24 w-24 items-center justify-center rounded-full text-5xl shadow-lg animate-pulse-glow mb-4"
           style={{ backgroundColor: avatar.skinColor }}
         >
-          {['🧑', '👦', '👧', '🧒'][avatar.hairStyle]}
+          {['👧', '👩', '🧒', '👱‍♀️'][avatar.hairStyle]}
         </div>
         <h1 className="font-display text-2xl font-bold text-foreground">{avatar.name}</h1>
         <div className="mt-2 flex items-center gap-2">
@@ -38,19 +37,18 @@ const Profile = () => {
           <span className="font-display font-semibold text-accent">{levelLabels[level] || level}</span>
         </div>
 
-        {/* Stats */}
         <div className="mt-6 w-full max-w-sm">
           <div className="card-playful">
             <div className="flex items-center justify-between mb-3">
               <span className="font-display font-semibold text-foreground">Puntos</span>
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 text-gold" />
-                <span className="font-display font-bold text-warning-foreground">{points}</span>
+                <span className="font-display font-bold text-secondary-foreground">{points}</span>
               </div>
             </div>
             <div className="mb-1 flex justify-between text-sm text-muted-foreground">
               <span>Progreso</span>
-              <span>{nextLevel} para subir de nivel</span>
+              <span>{nextLevel} para subir</span>
             </div>
             <Progress value={Math.min(progress, 100)} className="h-3 rounded-full" />
           </div>
