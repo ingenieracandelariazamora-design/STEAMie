@@ -18,11 +18,14 @@ import ComicStories from "./pages/ComicStories";
 import FamilyGuide from "./pages/FamilyGuide";
 import EmabotChat from "./pages/EmabotChat";
 import SafeOrNotGame from "./pages/SafeOrNotGame";
+import MiniGames from "./pages/MiniGames";
+import DetectiveGame from "./pages/DetectiveGame";
+import ProtectInfoGame from "./pages/ProtectInfoGame";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not'];
+const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not', '/mini-games', '/game-detective', '/game-protect-info'];
 
 const AppContent = () => {
   const location = useLocation();
