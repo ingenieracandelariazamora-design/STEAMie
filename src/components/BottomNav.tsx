@@ -1,9 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, Target, BookOpen, Award, User } from 'lucide-react';
+import { Home, Gamepad2, BookOpen, Award, User } from 'lucide-react';
 
 const navItems = [
   { path: '/dashboard', label: 'Inicio', icon: Home },
-  { path: '/missions', label: 'Misiones', icon: Target },
+  { path: '/mini-games', label: 'Juegos', icon: Gamepad2 },
   { path: '/comics', label: 'Cómics', icon: BookOpen },
   { path: '/badges', label: 'Insignias', icon: Award },
   { path: '/profile', label: 'Perfil', icon: User },
@@ -18,7 +18,7 @@ const BottomNav = () => {
       <div className="mx-auto flex max-w-lg items-center justify-around py-2">
         {navItems.map(item => {
           const isActive = location.pathname === item.path || 
-            (item.path === '/missions' && (location.pathname === '/story' || location.pathname === '/game-phishing'));
+            (item.path === '/mini-games' && ['/game-safe-or-not', '/game-detective', '/game-protect-info'].includes(location.pathname));
           return (
             <button
               key={item.path}
