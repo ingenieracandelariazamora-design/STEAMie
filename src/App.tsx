@@ -39,6 +39,7 @@ const AppContent = () => {
         <Route path="/story" element={<StoryMission />} />
         <Route path="/game-phishing" element={<PhishingGame />} />
         <Route path="/comics" element={<ComicStories />} />
+        <Route path="/emabot-chat" element={<EmabotChat />} />
         <Route path="/family-guide" element={<FamilyGuide />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
