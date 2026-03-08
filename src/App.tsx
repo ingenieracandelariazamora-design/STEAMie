@@ -17,11 +17,12 @@ import PhishingGame from "./pages/PhishingGame";
 import ComicStories from "./pages/ComicStories";
 import FamilyGuide from "./pages/FamilyGuide";
 import EmabotChat from "./pages/EmabotChat";
+import SafeOrNotGame from "./pages/SafeOrNotGame";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat'];
+const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not'];
 
 const AppContent = () => {
   const location = useLocation();
@@ -41,6 +42,7 @@ const AppContent = () => {
         <Route path="/comics" element={<ComicStories />} />
         <Route path="/emabot-chat" element={<EmabotChat />} />
         <Route path="/family-guide" element={<FamilyGuide />} />
+        <Route path="/game-safe-or-not" element={<SafeOrNotGame />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showNav && <BottomNav />}

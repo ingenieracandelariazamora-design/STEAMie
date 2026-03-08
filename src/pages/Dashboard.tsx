@@ -28,6 +28,7 @@ const Dashboard = () => {
 
   const missions = [
     { id: 'emabot-chat', title: '💬 Habla con Emabot', desc: 'Tu guía digital te enseña seguridad', icon: '🤖', path: '/emabot-chat', completed: false },
+    { id: 'game-safe', title: '¿Seguro o No Seguro?', desc: '¡Aprende qué es seguro en internet!', icon: '🛡️', path: '/game-safe-or-not', completed: false },
     { id: 'story-1', title: 'El mensaje sospechoso', desc: 'Un extraño te envía un enlace raro...', icon: '📩', path: '/story', completed: completedMissions.includes('story-1') },
     { id: 'game-phishing', title: '¡Detecta el falso!', desc: '¿Puedes identificar cuál mensaje es phishing?', icon: '🎣', path: '/game-phishing', completed: completedMissions.includes('game-phishing') },
     { id: 'comics', title: '📚 Cómics de seguridad', desc: 'Historias ilustradas para aprender', icon: '📖', path: '/comics', completed: false },
