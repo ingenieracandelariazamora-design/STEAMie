@@ -46,6 +46,9 @@ const AppContent = () => {
         <Route path="/emabot-chat" element={<EmabotChat />} />
         <Route path="/family-guide" element={<FamilyGuide />} />
         <Route path="/game-safe-or-not" element={<SafeOrNotGame />} />
+        <Route path="/mini-games" element={<MiniGames />} />
+        <Route path="/game-detective" element={<DetectiveGame />} />
+        <Route path="/game-protect-info" element={<ProtectInfoGame />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showNav && <BottomNav />}
