@@ -18,7 +18,7 @@ const BottomNav = () => {
       <div className="mx-auto flex max-w-lg items-center justify-around py-2">
         {navItems.map(item => {
           const isActive = location.pathname === item.path || 
-            (item.path === '/missions' && (location.pathname === '/story' || location.pathname === '/game-phishing'));
+            (item.path === '/mini-games' && ['/game-safe-or-not', '/game-detective', '/game-protect-info'].includes(location.pathname));
           return (
             <button
               key={item.path}
