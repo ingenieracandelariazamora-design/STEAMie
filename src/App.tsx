@@ -16,6 +16,7 @@ import StoryMission from "./pages/StoryMission";
 import PhishingGame from "./pages/PhishingGame";
 import ComicStories from "./pages/ComicStories";
 import FamilyGuide from "./pages/FamilyGuide";
+import EmabotChat from "./pages/EmabotChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
