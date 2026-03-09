@@ -50,6 +50,7 @@ const AppContent = () => {
         <Route path="/mini-games" element={<MiniGames />} />
         <Route path="/game-detective" element={<DetectiveGame />} />
         <Route path="/game-protect-info" element={<ProtectInfoGame />} />
+        <Route path="/community-stories" element={<CommunityStories />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showNav && <BottomNav />}
