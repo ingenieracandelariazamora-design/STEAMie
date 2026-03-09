@@ -21,11 +21,12 @@ import SafeOrNotGame from "./pages/SafeOrNotGame";
 import MiniGames from "./pages/MiniGames";
 import DetectiveGame from "./pages/DetectiveGame";
 import ProtectInfoGame from "./pages/ProtectInfoGame";
+import CommunityStories from "./pages/CommunityStories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not', '/mini-games', '/game-detective', '/game-protect-info'];
+const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not', '/mini-games', '/game-detective', '/game-protect-info', '/community-stories'];
 
 const AppContent = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const AppContent = () => {
         <Route path="/mini-games" element={<MiniGames />} />
         <Route path="/game-detective" element={<DetectiveGame />} />
         <Route path="/game-protect-info" element={<ProtectInfoGame />} />
+        <Route path="/community-stories" element={<CommunityStories />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showNav && <BottomNav />}
