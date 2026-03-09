@@ -140,6 +140,23 @@ const Dashboard = () => {
             ))}
           </div>
         </section>
+
+        {/* Community Stories */}
+        <section>
+          <div
+            className="card-playful flex items-center gap-4 cursor-pointer border-2 border-accent/30"
+            onClick={() => navigate('/community-stories')}
+          >
+            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-3xl">
+              💜
+            </div>
+            <div className="flex-1">
+              <h3 className="font-display font-semibold text-foreground">Historias de la Comunidad</h3>
+              <p className="text-sm text-muted-foreground">Experiencias reales de familias sobre seguridad digital</p>
+            </div>
+            <ArrowRight className="h-5 w-5 text-accent" />
+          </div>
+        </section>
       </div>
     </div>
   );
