@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '@/contexts/GameContext';
 import { Shield, Star, Trophy, ArrowRight } from 'lucide-react';
@@ -7,6 +8,7 @@ import emabotMascot from '@/assets/emabot-mascot.png';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { avatar, points, level, badges, completedMissions, pointsAnimation, ageGroup } = useGame();
+  const [showEmabotHint, setShowEmabotHint] = useState(false);
 
   if (!avatar) {
     navigate('/create-avatar');
@@ -27,7 +29,7 @@ const Dashboard = () => {
   const isYoung = ageGroup === '5-7';
 
   const missions = [
-    { id: 'emabot-chat', title: '💬 Habla con Emabot', desc: 'Tu guía digital te enseña seguridad', icon: '🤖', path: '/emabot-chat', completed: false },
+    { id: 'emabot-chat', title: '💬 Habla con Emabot', desc: 'Tu guía digital te enseña seguridad', icon: '🤖', path: 'emabot-hint', completed: false },
     { id: 'game-safe', title: '¿Seguro o No Seguro?', desc: '¡Aprende qué es seguro en internet!', icon: '🛡️', path: '/game-safe-or-not', completed: false },
     { id: 'story-1', title: 'El mensaje sospechoso', desc: 'Un extraño te envía un enlace raro...', icon: '📩', path: '/story', completed: completedMissions.includes('story-1') },
     { id: 'game-phishing', title: '¡Detecta el falso!', desc: '¿Puedes identificar cuál mensaje es phishing?', icon: '🎣', path: '/game-phishing', completed: completedMissions.includes('game-phishing') },
@@ -122,7 +124,16 @@ const Dashboard = () => {
                 className={`card-playful flex items-center gap-4 cursor-pointer ${
                   mission.completed ? 'border-success/50 bg-success/5' : ''
                 }`}
-                onClick={() => navigate(mission.path)}
+                onClick={() => {
+                  if (mission.path === 'emabot-hint') {
+                    setShowEmabotHint(true);
+                    // Dispatch event to highlight the floating chat bubble
+                    window.dispatchEvent(new CustomEvent('highlight-emabot-bubble'));
+                    setTimeout(() => setShowEmabotHint(false), 6000);
+                  } else {
+                    navigate(mission.path);
+                  }
+                }}
               >
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
                   {mission.icon}
@@ -157,6 +168,33 @@ const Dashboard = () => {
             <ArrowRight className="h-5 w-5 text-accent" />
           </div>
         </section>
+
+        {/* Emabot hint overlay */}
+        {showEmabotHint && (
+          <div className="fixed inset-0 z-40 flex items-end justify-end p-4 pb-24 pointer-events-none animate-slide-up">
+            <div className="relative max-w-xs pointer-events-auto bg-card border-2 border-primary/40 rounded-3xl p-5 shadow-2xl mr-2 mb-2">
+              <button
+                onClick={() => setShowEmabotHint(false)}
+                className="absolute top-2 right-3 text-muted-foreground hover:text-foreground text-lg"
+              >
+                ✕
+              </button>
+              <div className="flex items-start gap-3">
+                <img src={emabotMascot} alt="Emabot" className="h-12 w-12 rounded-full border-2 border-primary/30 flex-shrink-0" />
+                <div>
+                  <p className="font-display font-bold text-foreground text-base">¡Hola! Soy Emabot 🤖</p>
+                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    Para hablar conmigo, toca mi burbuja de chat en la esquina de la pantalla 💬
+                  </p>
+                  <p className="text-sm text-primary font-semibold mt-1">
+                    ¡Ahí podemos jugar y aprender juntas! ✨
+                  </p>
+                </div>
+              </div>
+              <div className="absolute -bottom-3 right-8 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-primary/40" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
