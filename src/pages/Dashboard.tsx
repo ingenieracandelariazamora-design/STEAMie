@@ -10,6 +10,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { avatar, points, level, badges, completedMissions, pointsAnimation, ageGroup } = useGame();
   const [showEmabotHint, setShowEmabotHint] = useState(false);
+  const { speak } = useTTS();
 
   if (!avatar) {
     navigate('/create-avatar');
