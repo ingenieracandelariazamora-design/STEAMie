@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { MessageCircle, X, Send, Volume2, VolumeX, Mic, MicOff, Shield, Lock, MessageSquare, Gamepad2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import { useGame } from '@/contexts/GameContext';
 import ReactMarkdown from 'react-markdown';
 import emabotMascot from '@/assets/emabot-mascot.png';
 
@@ -29,7 +30,10 @@ const speak = (text: string) => {
   speechSynthesis.speak(utterance);
 };
 
-const GREETING = '¡Hola! 👋 Soy Emabot, tu guía digital. Estoy aquí para ayudarte a aprender cómo estar segura en internet. ¿Qué te gustaría hacer hoy?';
+const getGreeting = (name?: string) => {
+  const displayName = name || 'amiga';
+  return `¡Hola ${displayName}! 👋 Soy Emabot, tu guía digital. Estoy aquí para ayudarte a aprender cómo estar segura en internet. ¿Qué te gustaría hacer hoy?`;
+};
 
 const INITIAL_BUTTONS: QuickButton[] = [
   { label: 'Jugar un juego de seguridad', emoji: '🎮', message: '¡Quiero jugar un juego de seguridad!' },
@@ -38,10 +42,12 @@ const INITIAL_BUTTONS: QuickButton[] = [
 ];
 
 const AIChatbot = () => {
+  const { avatar } = useGame();
+  const userName = avatar?.name || '';
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: GREETING, buttons: INITIAL_BUTTONS },
+    { role: 'assistant', content: getGreeting(userName), buttons: INITIAL_BUTTONS },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -49,6 +55,15 @@ const AIChatbot = () => {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const greetingSetRef = useRef(false);
+
+  // Update greeting when avatar name becomes available
+  useEffect(() => {
+    if (userName && !greetingSetRef.current) {
+      greetingSetRef.current = true;
+      setMessages([{ role: 'assistant', content: getGreeting(userName), buttons: INITIAL_BUTTONS }]);
+    }
+  }, [userName]);
 
   // Listen for highlight event from Dashboard
   useEffect(() => {
@@ -104,7 +119,7 @@ const AIChatbot = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('ai-safety-chat', {
-        body: { messages: allMessages.map(m => ({ role: m.role, content: m.content })) },
+        body: { messages: allMessages.map(m => ({ role: m.role, content: m.content })), userName },
       });
 
       if (error) throw error;

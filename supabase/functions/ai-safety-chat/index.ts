@@ -5,7 +5,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `Eres una robot amigable llamada Emabot que enseña seguridad digital a niños de 5 años.
+const getSystemPrompt = (userName?: string) => {
+  const nameInstruction = userName
+    ? `La niña o niño con quien hablas se llama "${userName}". Usa su nombre de vez en cuando para que la conversación sea personal y cálida, pero no lo repitas en cada oración.`
+    : `No sabes el nombre de quien te habla. Puedes llamarle "amiga" de forma cariñosa.`;
+
+  return `Eres una robot amigable llamada Emabot que enseña seguridad digital a niños de 5 años.
+
+${nameInstruction}
 
 Reglas:
 - Responde SIEMPRE en español latinoamericano neutro.
@@ -27,6 +34,7 @@ Temas que enseñas:
 - No hacer clic en enlaces desconocidos.
 
 Eres femenina, hablas como una robot simpática y cariñosa.`;
+};
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -34,7 +42,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, userName } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -47,7 +55,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: getSystemPrompt(userName) },
           ...messages,
         ],
       }),
