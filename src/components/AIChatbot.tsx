@@ -119,7 +119,7 @@ const AIChatbot = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('ai-safety-chat', {
-        body: { messages: allMessages.map(m => ({ role: m.role, content: m.content })) },
+        body: { messages: allMessages.map(m => ({ role: m.role, content: m.content })), userName },
       });
 
       if (error) throw error;
