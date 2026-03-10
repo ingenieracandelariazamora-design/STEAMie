@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGame } from '@/contexts/GameContext';
 import { Shield, Star, Trophy, ArrowRight } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { useTTS } from '@/hooks/useTTS';
 import emabotMascot from '@/assets/emabot-mascot.png';
 
 const Dashboard = () => {
