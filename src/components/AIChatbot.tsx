@@ -30,7 +30,10 @@ const speak = (text: string) => {
   speechSynthesis.speak(utterance);
 };
 
-const GREETING = '¡Hola! 👋 Soy Emabot, tu guía digital. Estoy aquí para ayudarte a aprender cómo estar segura en internet. ¿Qué te gustaría hacer hoy?';
+const getGreeting = (name?: string) => {
+  const displayName = name || 'amiga';
+  return `¡Hola ${displayName}! 👋 Soy Emabot, tu guía digital. Estoy aquí para ayudarte a aprender cómo estar segura en internet. ¿Qué te gustaría hacer hoy?`;
+};
 
 const INITIAL_BUTTONS: QuickButton[] = [
   { label: 'Jugar un juego de seguridad', emoji: '🎮', message: '¡Quiero jugar un juego de seguridad!' },
