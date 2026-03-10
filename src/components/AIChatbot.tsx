@@ -39,6 +39,7 @@ const INITIAL_BUTTONS: QuickButton[] = [
 
 const AIChatbot = () => {
   const [open, setOpen] = useState(false);
+  const [highlighted, setHighlighted] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: GREETING, buttons: INITIAL_BUTTONS },
   ]);
@@ -48,6 +49,16 @@ const AIChatbot = () => {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Listen for highlight event from Dashboard
+  useEffect(() => {
+    const handler = () => {
+      setHighlighted(true);
+      setTimeout(() => setHighlighted(false), 4000);
+    };
+    window.addEventListener('highlight-emabot-bubble', handler);
+    return () => window.removeEventListener('highlight-emabot-bubble', handler);
+  }, []);
 
   const startListening = useCallback(() => {
     if (!SpeechRecognition) return;
