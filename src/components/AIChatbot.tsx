@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { MessageCircle, X, Send, Volume2, VolumeX, Mic, MicOff, Shield, Lock, MessageSquare, Gamepad2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import { useGame } from '@/contexts/GameContext';
 import ReactMarkdown from 'react-markdown';
 import emabotMascot from '@/assets/emabot-mascot.png';
 
