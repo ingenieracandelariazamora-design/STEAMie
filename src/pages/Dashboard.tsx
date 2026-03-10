@@ -164,7 +164,14 @@ const Dashboard = () => {
         <section>
           <div
             className="card-playful flex items-center gap-4 cursor-pointer border-2 border-accent/30"
-            onClick={() => navigate('/community-stories')}
+            onClick={() => {
+              if (isYoung) {
+                speak('Aquí las familias comparten experiencias para aprender sobre seguridad digital.');
+                setTimeout(() => navigate('/community-stories'), 1500);
+              } else {
+                navigate('/community-stories');
+              }
+            }}
           >
             <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-3xl">
               💜
