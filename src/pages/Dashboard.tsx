@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '@/contexts/GameContext';
 import { Shield, Star, Trophy, ArrowRight } from 'lucide-react';
@@ -7,6 +8,7 @@ import emabotMascot from '@/assets/emabot-mascot.png';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { avatar, points, level, badges, completedMissions, pointsAnimation, ageGroup } = useGame();
+  const [showEmabotHint, setShowEmabotHint] = useState(false);
 
   if (!avatar) {
     navigate('/create-avatar');
