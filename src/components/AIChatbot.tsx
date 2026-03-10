@@ -131,7 +131,11 @@ const AIChatbot = () => {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-20 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg transition-transform hover:scale-110 animate-pulse-glow overflow-hidden border-2 border-primary-foreground/20"
+          className={`fixed bottom-20 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg transition-all overflow-hidden border-2 border-primary-foreground/20 ${
+            highlighted
+              ? 'scale-125 ring-4 ring-primary/50 ring-offset-2 ring-offset-background animate-wiggle'
+              : 'hover:scale-110 animate-pulse-glow'
+          }`}
         >
           <img src={emabotMascot} alt="Emabot" className="h-12 w-12 object-cover rounded-full" />
         </button>
