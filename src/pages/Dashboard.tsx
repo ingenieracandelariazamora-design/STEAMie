@@ -127,13 +127,19 @@ const Dashboard = () => {
                   mission.completed ? 'border-success/50 bg-success/5' : ''
                 }`}
                 onClick={() => {
+                  if (isYoung && mission.ttsHint) {
+                    speak(mission.ttsHint);
+                  }
                   if (mission.path === 'emabot-hint') {
                     setShowEmabotHint(true);
-                    // Dispatch event to highlight the floating chat bubble
                     window.dispatchEvent(new CustomEvent('highlight-emabot-bubble'));
                     setTimeout(() => setShowEmabotHint(false), 6000);
                   } else {
-                    navigate(mission.path);
+                    if (isYoung && mission.ttsHint) {
+                      setTimeout(() => navigate(mission.path), 1500);
+                    } else {
+                      navigate(mission.path);
+                    }
                   }
                 }}
               >
