@@ -168,6 +168,33 @@ const Dashboard = () => {
             <ArrowRight className="h-5 w-5 text-accent" />
           </div>
         </section>
+
+        {/* Emabot hint overlay */}
+        {showEmabotHint && (
+          <div className="fixed inset-0 z-40 flex items-end justify-end p-4 pb-24 pointer-events-none animate-slide-up">
+            <div className="relative max-w-xs pointer-events-auto bg-card border-2 border-primary/40 rounded-3xl p-5 shadow-2xl mr-2 mb-2">
+              <button
+                onClick={() => setShowEmabotHint(false)}
+                className="absolute top-2 right-3 text-muted-foreground hover:text-foreground text-lg"
+              >
+                ✕
+              </button>
+              <div className="flex items-start gap-3">
+                <img src={emabotMascot} alt="Emabot" className="h-12 w-12 rounded-full border-2 border-primary/30 flex-shrink-0" />
+                <div>
+                  <p className="font-display font-bold text-foreground text-base">¡Hola! Soy Emabot 🤖</p>
+                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    Para hablar conmigo, toca mi burbuja de chat en la esquina de la pantalla 💬
+                  </p>
+                  <p className="text-sm text-primary font-semibold mt-1">
+                    ¡Ahí podemos jugar y aprender juntas! ✨
+                  </p>
+                </div>
+              </div>
+              <div className="absolute -bottom-3 right-8 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-primary/40" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
