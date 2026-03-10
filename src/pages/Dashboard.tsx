@@ -124,7 +124,16 @@ const Dashboard = () => {
                 className={`card-playful flex items-center gap-4 cursor-pointer ${
                   mission.completed ? 'border-success/50 bg-success/5' : ''
                 }`}
-                onClick={() => navigate(mission.path)}
+                onClick={() => {
+                  if (mission.path === 'emabot-hint') {
+                    setShowEmabotHint(true);
+                    // Dispatch event to highlight the floating chat bubble
+                    window.dispatchEvent(new CustomEvent('highlight-emabot-bubble'));
+                    setTimeout(() => setShowEmabotHint(false), 6000);
+                  } else {
+                    navigate(mission.path);
+                  }
+                }}
               >
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
                   {mission.icon}
