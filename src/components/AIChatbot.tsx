@@ -42,10 +42,12 @@ const INITIAL_BUTTONS: QuickButton[] = [
 ];
 
 const AIChatbot = () => {
+  const { avatar } = useGame();
+  const userName = avatar?.name || '';
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: GREETING, buttons: INITIAL_BUTTONS },
+    { role: 'assistant', content: getGreeting(userName), buttons: INITIAL_BUTTONS },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,6 +55,15 @@ const AIChatbot = () => {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const greetingSetRef = useRef(false);
+
+  // Update greeting when avatar name becomes available
+  useEffect(() => {
+    if (userName && !greetingSetRef.current) {
+      greetingSetRef.current = true;
+      setMessages([{ role: 'assistant', content: getGreeting(userName), buttons: INITIAL_BUTTONS }]);
+    }
+  }, [userName]);
 
   // Listen for highlight event from Dashboard
   useEffect(() => {
