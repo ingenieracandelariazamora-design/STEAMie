@@ -22,6 +22,7 @@ import MiniGames from "./pages/MiniGames";
 import DetectiveGame from "./pages/DetectiveGame";
 import ProtectInfoGame from "./pages/ProtectInfoGame";
 import CommunityStories from "./pages/CommunityStories";
+import SafetyVideos from "./pages/SafetyVideos";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
