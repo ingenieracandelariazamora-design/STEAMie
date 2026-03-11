@@ -35,7 +35,7 @@ const Dashboard = () => {
     { id: 'game-safe', title: '¿Seguro o No Seguro?', desc: '¡Aprende qué es seguro en internet!', icon: '🛡️', path: '/game-safe-or-not', completed: false, ttsHint: 'Vamos a jugar. Tú decides si algo en internet es seguro o peligroso.' },
     { id: 'story-1', title: 'El mensaje sospechoso', desc: 'Un extraño te envía un enlace raro...', icon: '📩', path: '/story', completed: completedMissions.includes('story-1'), ttsHint: 'Un extraño te envía un mensaje raro. ¿Qué deberías hacer?' },
     { id: 'game-phishing', title: '¡Detecta el falso!', desc: '¿Puedes identificar cuál mensaje es phishing?', icon: '🎣', path: '/game-phishing', completed: completedMissions.includes('game-phishing'), ttsHint: '¿Puedes descubrir cuál mensaje es falso?' },
-    { id: 'comics', title: '📚 Cómics de seguridad', desc: 'Historias ilustradas para aprender', icon: '📖', path: '/comics', completed: false, ttsHint: 'Vamos a ver una historia para aprender a estar seguras en internet.' },
+    { id: 'videos', title: '🎬 Videos de seguridad', desc: '¡Aprende con videos cortos y divertidos!', icon: '🎬', path: '/videos', completed: false, ttsHint: 'Vamos a ver una historia para aprender a estar seguras en internet.' },
   ];
 
   const badgeLabels: Record<string, { name: string; description: string }> = {
