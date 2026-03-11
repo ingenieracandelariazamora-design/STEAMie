@@ -27,7 +27,7 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not', '/mini-games', '/game-detective', '/game-protect-info', '/community-stories'];
+const PAGES_WITH_NAV = ['/dashboard', '/missions', '/badges', '/profile', '/story', '/game-phishing', '/comics', '/emabot-chat', '/game-safe-or-not', '/mini-games', '/game-detective', '/game-protect-info', '/community-stories', '/videos'];
 
 const AppContent = () => {
   const location = useLocation();
